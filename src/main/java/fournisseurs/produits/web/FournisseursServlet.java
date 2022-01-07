@@ -1,4 +1,4 @@
-package net.javaguides.usermanagement.web;
+package fournisseurs.produits.web;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.javaguides.usermanagement.dao.UserDAO;
-import net.javaguides.usermanagement.model.User;
+import fournisseurs.produits.dao.FournisseurDAO;
+import fournisseurs.produits.model.Fournisseur;
 
 @WebServlet("/")
-public class UserServlet extends HttpServlet {
+public class FournisseursServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAO userDAO;
+	private FournisseurDAO userDAO;
 	
 	public void init() {
-		userDAO = new UserDAO();
+		userDAO = new FournisseurDAO();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,7 +65,7 @@ public class UserServlet extends HttpServlet {
 
 	private void listUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
-		List<User> listUser = userDAO.selectAllUsers();
+		List<Fournisseur> listUser = userDAO.selectAllUsers();
 		request.setAttribute("listUser", listUser);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
 		dispatcher.forward(request, response);
@@ -80,7 +80,7 @@ public class UserServlet extends HttpServlet {
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		User existingUser = userDAO.selectUser(id);
+		Fournisseur existingUser = userDAO.selectUser(id);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
 		request.setAttribute("user", existingUser);
 		dispatcher.forward(request, response);
@@ -92,7 +92,7 @@ public class UserServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String country = request.getParameter("country");
-		User newUser = new User(name, email, country);
+		Fournisseur newUser = new Fournisseur(name, email, country);
 		userDAO.insertUser(newUser);
 		response.sendRedirect("list");
 	}
@@ -104,7 +104,7 @@ public class UserServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String country = request.getParameter("country");
 
-		User book = new User(id, name, email, country);
+		Fournisseur book = new Fournisseur(id, name, email, country);
 		userDAO.updateUser(book);
 		response.sendRedirect("list");
 	}

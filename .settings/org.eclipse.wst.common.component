@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="crud_user_manager">
+        
+    <wb-module deploy-name="crud-fournisseurs-des-produits">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="crud_user_manager"/>
-        <property name="java-output-path" value="/crud_user_manager/build/classes"/>
+                
+        <property name="java-output-path" value="/crud-fournisseurs-des-produits/build/classes"/>
+        <property name="context-root" value="crud-fournisseurs-des-produits"/>
+            
     </wb-module>
+    
 </project-modules>

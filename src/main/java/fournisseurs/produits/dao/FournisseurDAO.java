@@ -1,4 +1,4 @@
-package net.javaguides.usermanagement.dao;
+package fournisseurs.produits.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.javaguides.usermanagement.model.User;
+import fournisseurs.produits.model.Fournisseur;
 
-public class UserDAO {
+public class FournisseurDAO {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "";
@@ -23,7 +23,7 @@ public class UserDAO {
 	private static final String DELETE_USERS_SQL = "delete from users where id = ?;";
 	private static final String UPDATE_USERS_SQL = "update users set name = ?,email= ?, country =? where id = ?;";
 
-	public UserDAO() {
+	public FournisseurDAO() {
 	}
 
 	protected Connection getConnection() {
@@ -41,7 +41,7 @@ public class UserDAO {
 		return connection;
 	}
 
-	public void insertUser(User user) throws SQLException {
+	public void insertUser(Fournisseur user) throws SQLException {
 		System.out.println(INSERT_USERS_SQL);
 		// try-with-resource statement will auto close the connection.
 		try (Connection connection = getConnection();
@@ -56,8 +56,8 @@ public class UserDAO {
 		}
 	}
 
-	public User selectUser(int id) {
-		User user = null;
+	public Fournisseur selectUser(int id) {
+		Fournisseur user = null;
 		// Step 1: Establishing a Connection
 		try (Connection connection = getConnection();
 				// Step 2:Create a statement using connection object
@@ -72,7 +72,7 @@ public class UserDAO {
 				String name = rs.getString("name");
 				String email = rs.getString("email");
 				String country = rs.getString("country");
-				user = new User(id, name, email, country);
+				user = new Fournisseur(id, name, email, country);
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -80,10 +80,10 @@ public class UserDAO {
 		return user;
 	}
 
-	public List<User> selectAllUsers() {
+	public List<Fournisseur> selectAllUsers() {
 
 		// using try-with-resources to avoid closing resources (boiler plate code)
-		List<User> users = new ArrayList<>();
+		List<Fournisseur> users = new ArrayList<>();
 		// Step 1: Establishing a Connection
 		try (Connection connection = getConnection();
 
@@ -99,7 +99,7 @@ public class UserDAO {
 				String name = rs.getString("name");
 				String email = rs.getString("email");
 				String country = rs.getString("country");
-				users.add(new User(id, name, email, country));
+				users.add(new Fournisseur(id, name, email, country));
 			}
 		} catch (SQLException e) {
 			printSQLException(e);
@@ -117,7 +117,7 @@ public class UserDAO {
 		return rowDeleted;
 	}
 
-	public boolean updateUser(User user) throws SQLException {
+	public boolean updateUser(Fournisseur user) throws SQLException {
 		boolean rowUpdated;
 		try (Connection connection = getConnection();
 				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
